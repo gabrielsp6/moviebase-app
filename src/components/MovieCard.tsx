@@ -9,11 +9,18 @@ import {
   Link,
 } from "@chakra-ui/react";
 import config from "../utils/config.json";
+
+interface IMovieData {
+  id: number;
+  title: string;
+  poster_path: string;
+}
+
 const buildImageUrl = (path: any, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
 const Movie = ({ id }: { id: any }) => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<IMovieData>(null);
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
