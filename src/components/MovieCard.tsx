@@ -4,7 +4,6 @@ import {
   Center,
   CircularProgress,
   Container,
-  Text,
   Image,
   Link,
 } from "@chakra-ui/react";
@@ -16,66 +15,28 @@ interface IMovieData {
   poster_path: string;
 }
 
-const buildImageUrl = (path: any, size = "original") =>
+const buildImageUrl = (path: string, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
-const Movie = ({ id }: { id: any }) => {
-  const [data, setData] = useState<IMovieData>(null);
-  const [error, setError] = useState<any>(null);
+const Movie = ({ id }: { id: string }) => {
+  const [data, setData] = useState<IMovieData>();
 
   useEffect(() => {
     async function fetchMovieDetails() {
-      try {
-        const response = await fetch(
-          `${config.THE_MOVIE_DB_API}/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch movie details");
-        }
-        const movieData = await response.json();
-        setData(movieData);
-      } catch (error) {
-        setError(error);
-      }
+      const response = await fetch(
+        `${config.THE_MOVIE_DB_API}/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+      );
+      const movieData = await response.json();
+      setData(movieData);
     }
     fetchMovieDetails();
   }, [id]);
-  if (error) {
-    return (
-      <Text color="red">
-        Error fetching movie with ID {id}: {JSON.stringify(error)}
-      </Text>
-    );
-  }
 
   if (!data) {
     return (
       <Center h="full">
         <CircularProgress isIndeterminate />
       </Center>
-    );
-  }
-  if (data.success === false) {
-    return (
-      <Box
-        minW="150px"
-        pos="relative"
-        width="150px"
-        _hover={{
-          cursor: "pointer",
-          transform: "scale(1.3)",
-          transition: "0.5s ease",
-        }}
-      >
-        <Container>
-          <Box backgroundColor={"gray"} width="200" height="180">
-            <Text color="red">
-              Error loading movie with ID {id}: {JSON.stringify(error)}
-              '(database) error'
-            </Text>
-          </Box>
-        </Container>
-      </Box>
     );
   }
 
