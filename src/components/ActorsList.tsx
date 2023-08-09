@@ -4,16 +4,16 @@ import React, { useRef } from "react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
 
 type ActorType = {
-  id: string,
-  original_name: string,
-  profile_path: string
+  id: string;
+  original_name: string;
+  profile_path: string;
+};
+
+interface IActorsListProps {
+  cast: ActorType[];
 }
 
-interface IActorsListProps{
-  cast: ActorType[]
-  }
-
-const ActorsList = ({ cast } : IActorsListProps) => {
+const ActorsList = ({ cast }: IActorsListProps) => {
   const scrollableContent = useRef<HTMLDivElement>(null);
 
   return (
@@ -32,7 +32,7 @@ const ActorsList = ({ cast } : IActorsListProps) => {
         rounded={"20px"}
       >
         {cast
-          ? cast?.map((actor : ActorType , index: number) => (
+          ? cast?.map((actor: ActorType, index: number) => (
               <ActorCard id={actor.id} key={index} actor={actor} />
             ))
           : "Loading Actor"}
