@@ -3,8 +3,18 @@ import ActorCard from "./ActorCard";
 import React, { useRef } from "react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
 
-const ActorsList = ({ cast } : { cast: any}) => {
-  const scrollableContent = useRef<any>(null);
+type ActorType = {
+  id: string,
+  original_name: string,
+  profile_path: string
+}
+
+interface IActorsListProps{
+  cast: ActorType[]
+  }
+
+const ActorsList = ({ cast } : IActorsListProps) => {
+  const scrollableContent = useRef<HTMLDivElement>(null);
 
   return (
     <Container display={"flex"} alignItems="center" flexDirection={"column"}>
@@ -22,7 +32,7 @@ const ActorsList = ({ cast } : { cast: any}) => {
         rounded={"20px"}
       >
         {cast
-          ? cast?.map((actor : any , index: any) => (
+          ? cast?.map((actor : ActorType , index: number) => (
               <ActorCard id={actor.id} key={index} actor={actor} />
             ))
           : "Loading Actor"}
@@ -30,13 +40,13 @@ const ActorsList = ({ cast } : { cast: any}) => {
 
       <Box display={"flex"} alignItems="center">
         <Button
-          onClick={() => scrollableContent.current.scrollBy(-500, 0)}
+          onClick={() => scrollableContent.current?.scrollBy(-500, 0)}
           margin={"20px"}
         >
           <ArrowLeftIcon />
         </Button>
         <Button
-          onClick={() => scrollableContent.current.scrollBy(500, 0)}
+          onClick={() => scrollableContent.current?.scrollBy(500, 0)}
           alignSelf={"center"}
         >
           <ArrowRightIcon />
