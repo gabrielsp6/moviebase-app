@@ -1,7 +1,12 @@
 import { Box, VStack, Grid } from "@chakra-ui/react";
 import Header from "./Header";
 
-export default function Layout({ children, title } : {children : any, title: string}) {
+interface ILayoutProps {
+  children: React.ReactNode;
+  title: string;
+}
+
+export default function Layout({ children, title } : ILayoutProps) {
   return (
     <>
       <Grid minH="100vh">
