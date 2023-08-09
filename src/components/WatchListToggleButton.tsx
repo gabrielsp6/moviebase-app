@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Tooltip, Button } from "@chakra-ui/react";
 
 const WatchListToggleButton = () => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<string>(null);
   return (
-    <Tooltip label={data?.found ? "Remove from Watchlist" : "Add to Watchlist"}>
+    <Tooltip label={data? "Remove from Watchlist" : "Add to Watchlist"}>
       <Button>
-        {data?.found ? "Remove from Watchlist" : "Add to Watchlist"}
+        {data? "Remove from Watchlist" : "Add to Watchlist"}
       </Button>
     </Tooltip>
   );
