@@ -12,7 +12,12 @@ import { HamburgerIcon } from "@chakra-ui/icons";
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-const MenuItem = ({ href, children, ...props } : {href: any, children:any}) => (
+interface IMenuItemProps {
+  href: string;
+  children: React.ReactNode;
+}
+
+const MenuItem = ({ href, children, ...props }: IMenuItemProps) => (
   <Link to={href}>
     <Button as="a" variant="link" {...props}>
       {children}
@@ -34,9 +39,7 @@ export default function Header() {
           py="1.5rem"
         >
           <HStack justify="space-between">
-
-              <Heading size="lg">Moviebase</Heading>
-
+            <Heading size="lg">Moviebase</Heading>
 
             <Box display={["block", null, "none"]} onClick={onToggle}>
               <Button variant="outline">
