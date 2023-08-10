@@ -18,7 +18,7 @@ interface IMovieData {
 const buildImageUrl = (path: string, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
-const Movie = ({ id }: { id: string }) => {
+const Movie = ({ id }: { id: number }) => {
   const [data, setData] = useState<IMovieData>();
 
   useEffect(() => {
@@ -40,10 +40,9 @@ const Movie = ({ id }: { id: string }) => {
     );
   }
 
-
-  const imageUrl:string = data.poster_path
-  ? buildImageUrl(data.poster_path, "w300")
-  : ""; 
+  const imageUrl: string = data.poster_path
+    ? buildImageUrl(data.poster_path, "w300")
+    : "";
   return (
     <div key={id}>
       <Box
@@ -58,12 +57,7 @@ const Movie = ({ id }: { id: string }) => {
       >
         <Link href={`/movie/${id}`}>
           <Container>
-            <Image
-              src={imageUrl}
-              alt="Movie poster"
-              width="200"
-              height="200"
-            />
+            <Image src={imageUrl} alt="Movie poster" width="200" height="200" />
           </Container>
         </Link>
       </Box>

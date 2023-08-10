@@ -34,8 +34,8 @@ export default function Collections() {
             title={listItem.title}
             posterUrl={listItem.posterUrl}
             totalRuntime={listItem.totalRuntime}
-            key={index}
             comment={listItem.comment}
+            key={index}
           />
         ))}
       </Container>
