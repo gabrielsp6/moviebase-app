@@ -15,17 +15,17 @@ import WatchListToggleButton from "../components/WatchListToggleButton";
 import config from "../utils/config.json";
 import MovieActors from "../components/MovieActors";
 
-interface MovieGenre {
+interface IMovieGenre {
   id: number;
   name: string;
 }
 
-interface MovieDetailsData {
+interface IMovieDetailsData {
   title: string;
   poster_path: string;
   release_date: string;
   tagline: string;
-  genres: MovieGenre[];
+  genres: IMovieGenre[];
   overview: string;
   runtime: number;
 }
@@ -35,7 +35,7 @@ const buildImageUrl = (path: string, size = "original") =>
 
 function MovieDetails() {
   const { id } = useParams<{ id: string }>();
-  const [data, setData] = useState<MovieDetailsData | null>(null);
+  const [data, setData] = useState<IMovieDetailsData | null>(null);
 
   useEffect(() => {
     async function fetchMovieDetails() {
