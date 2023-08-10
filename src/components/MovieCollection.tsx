@@ -106,8 +106,8 @@ const MovieCollection = ({
     <Container width={300}>
       <Button
         onClick={() => setIsOpen(true)}
-        width={400}
-        height={500}
+        width={350}
+        height={400}
         display="flex"
         flexDirection="column"
       >
