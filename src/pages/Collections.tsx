@@ -17,7 +17,7 @@ export default function Collections() {
             title={listItem.title}
             posterUrl={listItem.posterUrl}
             totalRuntime={listItem.totalRuntime}
-            comment = {listItem.comment}
+            comment={listItem.comment}
             key={index}
           />
         ))}
@@ -35,7 +35,7 @@ export default function Collections() {
             posterUrl={listItem.posterUrl}
             totalRuntime={listItem.totalRuntime}
             key={index}
-            comment = {listItem.comment}
+            comment={listItem.comment}
           />
         ))}
       </Container>
@@ -53,7 +53,7 @@ export default function Collections() {
             posterUrl={listItem.posterUrl}
             totalRuntime={listItem.totalRuntime}
             key={index}
-            comment = {listItem.comment}
+            comment={listItem.comment}
           />
         ))}
       </Container>

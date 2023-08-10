@@ -17,6 +17,19 @@ import config from "../utils/config.json";
 import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
 import React, { useState, useRef } from "react";
 
+interface IMovieData {
+  id?: number;
+  title?: string;
+  poster_path?: string;
+}
+
+interface IMovieCollectionProps {
+  list?: IMovieData[];
+  title: string;
+  posterUrl: string;
+  totalRuntime: string;
+  comment: string;
+}
 const buildImageUrl = (path: string, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
@@ -26,13 +39,7 @@ const MovieCollection = ({
   posterUrl,
   totalRuntime,
   comment,
-}: {
-  list: any;
-  title: any;
-  posterUrl: any;
-  totalRuntime: any;
-  comment: any;
-}) => {
+}: IMovieCollectionProps) => {
   const scrollableContent = useRef<any>(null);
   const [isOpen, setIsOpen] = useState<any>(false);
 

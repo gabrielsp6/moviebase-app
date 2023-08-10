@@ -11,8 +11,8 @@ import config from "../utils/config.json";
 
 interface IMovieData {
   id: number;
-  title: string;
-  poster_path: string;
+  title?: string;
+  poster_path?: string;
 }
 
 const buildImageUrl = (path: string, size = "original") =>
@@ -40,6 +40,10 @@ const Movie = ({ id }: { id: string }) => {
     );
   }
 
+
+  const imageUrl:string = data.poster_path
+  ? buildImageUrl(data.poster_path, "w300")
+  : ""; 
   return (
     <div key={id}>
       <Box
@@ -55,7 +59,7 @@ const Movie = ({ id }: { id: string }) => {
         <Link href={`/movie/${id}`}>
           <Container>
             <Image
-              src={buildImageUrl(data.poster_path, "w300")}
+              src={imageUrl}
               alt="Movie poster"
               width="200"
               height="200"
