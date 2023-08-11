@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import config from "../utils/config.json";
 
 interface IMovieActorsProps {
-  id: string | undefined
+  id?: string
 }
 
 type ActorType = {
