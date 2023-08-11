@@ -22,13 +22,14 @@ const Movie = ({ id }: { id: number }) => {
   const [data, setData] = useState<IMovieData>();
 
   useEffect(() => {
-    async function fetchMovieDetails() {
+    const fetchMovieDetails = async () => {
       const response = await fetch(
         `${config.THE_MOVIE_DB_API}/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_API_KEY}`
       );
       const movieData = await response.json();
       setData(movieData);
-    }
+    };
+
     fetchMovieDetails();
   }, [id]);
 
