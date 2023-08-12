@@ -18,7 +18,7 @@ import config from "../utils/config.json";
 import MovieCard from "./MovieCard";
 
 interface IMovieData {
-  id: number;
+  id: number | string;
   title?: string;
   poster_path?: string;
 }

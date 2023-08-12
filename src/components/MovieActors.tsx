@@ -2,7 +2,6 @@ import {
   Center,
   CircularProgress,
   Container,
-  Text,
   Heading,
 } from "@chakra-ui/react";
 import ActorsList from "./ActorsList";

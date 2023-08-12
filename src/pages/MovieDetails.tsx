@@ -99,7 +99,7 @@ function MovieDetails() {
             <Badge colorScheme="purple" variant="outline"></Badge>
           </Box>
 
-          <FavouriteToggleButton />
+          <FavouriteToggleButton movieId = {id}/>
           <WatchListToggleButton />
 
           <Box>{data.overview}</Box>

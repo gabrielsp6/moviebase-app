@@ -10,15 +10,23 @@ import {
 import config from "../utils/config.json";
 
 interface IMovieData {
-  id: number;
+  id: number | string;
   title?: string;
   poster_path?: string;
+}
+
+interface IMovieCardProps {
+  id?: number | string,
+  onDelete?: (movieId : string) => void,
+  isHistory?: boolean,
+  date?: Date
+  
 }
 
 const buildImageUrl = (path: string, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
-const Movie = ({ id }: { id: number }) => {
+const Movie = ({ id, onDelete, isHistory, date }: IMovieCardProps) => {
   const [data, setData] = useState<IMovieData>();
 
   useEffect(() => {
