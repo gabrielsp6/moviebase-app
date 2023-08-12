@@ -2,15 +2,29 @@ import {
   Center,
   CircularProgress,
   Container,
-  Text,
   Heading,
 } from "@chakra-ui/react";
 import ActorsList from "./ActorsList";
 import React, { useEffect, useState } from "react";
 import config from "../utils/config.json";
 
-const MovieActors = ({ id }: { id: any }) => {
-  const [data, setData] = useState<any>(null);
+interface IMovieActorsProps {
+  id?: string
+}
+
+type ActorType = {
+  id: string;
+  original_name: string;
+  profile_path: string;
+};
+
+interface IActorsListProps {
+  cast: ActorType[],
+  status_message: string
+}
+
+const MovieActors = ({ id }: IMovieActorsProps) => {
+  const [data, setData] = useState<IActorsListProps>();
 
   useEffect(() => {
     async function fetchMovieActors() {
@@ -37,10 +51,6 @@ const MovieActors = ({ id }: { id: any }) => {
       </Center>
     );
   }
-  if (data.success === false) {
-    return <Text color="red">{data.status_message}</Text>;
-  }
-
   return (
     <Container>
       <Heading as={"h5"} fontSize="24px" mb={"40px"}>

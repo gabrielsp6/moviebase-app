@@ -15,12 +15,27 @@ import WatchListToggleButton from "../components/WatchListToggleButton";
 import config from "../utils/config.json";
 import MovieActors from "../components/MovieActors";
 
+interface IMovieGenre {
+  id: number;
+  name: string;
+}
+
+interface IMovieDetailsData {
+  title: string;
+  poster_path: string;
+  release_date: string;
+  tagline: string;
+  genres: IMovieGenre[];
+  overview: string;
+  runtime: number;
+}
+
 const buildImageUrl = (path: string, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
 function MovieDetails() {
-  const { id } = useParams();
-  const [data, setData] = useState<any>(null);
+  const { id } = useParams<{ id: string }>();
+  const [data, setData] = useState<IMovieDetailsData | null>(null);
 
   useEffect(() => {
     async function fetchMovieDetails() {
@@ -73,7 +88,7 @@ function MovieDetails() {
           <Box>{data.tagline}</Box>
 
           <Stack direction="row">
-            {data.genres?.map((genre: any) => (
+            {data.genres?.map((genre) => (
               <Badge key={genre.id} colorScheme="purple" variant="outline">
                 {genre.name}
               </Badge>
@@ -84,7 +99,7 @@ function MovieDetails() {
             <Badge colorScheme="purple" variant="outline"></Badge>
           </Box>
 
-          <FavouriteToggleButton />
+          <FavouriteToggleButton movieId = {id}/>
           <WatchListToggleButton />
 
           <Box>{data.overview}</Box>

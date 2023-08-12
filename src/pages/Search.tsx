@@ -14,9 +14,20 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 
-function SearchBar({ onSubmit } : { onSubmit : any}) {
+
+interface ISearchResultsItem {
+  id: number;
+  title: string;
+  release_date: string;
+}
+
+interface ISearchResultsProps {
+  terms: string;
+}
+
+function SearchBar({ onSubmit }: { onSubmit: (terms: string) => void }) {
   const [text, setText] = useState("");
-  const handleSearch = (event: any) => {
+  const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
     onSubmit(text);
   };
@@ -39,9 +50,10 @@ function SearchBar({ onSubmit } : { onSubmit : any}) {
   );
 }
 
-function SearchResults({ terms } : {terms: any}) {
-  const [data, setData] = useState<any>(null);
-  const [error, setError] = useState<any>(null);
+function SearchResults({ terms } : ISearchResultsProps) {
+  const [data, setData] = useState<{ results: ISearchResultsItem[] } | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  
 
   useEffect(() => {
     if (!terms) return;
@@ -57,7 +69,7 @@ function SearchResults({ terms } : {terms: any}) {
         const data = await response.json();
         setData(data);
       } catch (error) {
-        setError(error);
+        setError(error as Error);
       }
     };
 
@@ -86,7 +98,7 @@ function SearchResults({ terms } : {terms: any}) {
 
   return (
     <UnorderedList stylePosition="inside">
-      {data.results.map(({ id, title, release_date } : {id:any, title: string, release_date:any}) => (
+      {data.results.map(({ id, title, release_date } : ISearchResultsItem) => (
         <ListItem key={id}>
           <Link to={`/movie/${id}`}>
             <Button
@@ -106,9 +118,10 @@ function SearchResults({ terms } : {terms: any}) {
 export default function Search() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = (terms : any) => {
+  const handleSearch = (terms: string) => {
     setSearchTerm(terms);
   };
+  
 
   return (
     <div>
