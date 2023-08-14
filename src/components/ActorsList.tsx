@@ -1,6 +1,6 @@
 import { Container, Box, Button } from "@chakra-ui/react";
 import ActorCard from "./ActorCard";
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@chakra-ui/icons";
 
 type ActorType = {

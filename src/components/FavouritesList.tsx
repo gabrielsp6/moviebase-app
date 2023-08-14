@@ -1,8 +1,7 @@
 import MovieCard from "../components/MovieCard";
-import { Container, Stack, Progress, Text } from "@chakra-ui/react";
+import { Container, Stack} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import calculateRuntime from "../utils/calculateRuntime";
-import Movie from "../components/MovieCard";
+
 interface IMovieData {
   id: number | string;
   title?: string;

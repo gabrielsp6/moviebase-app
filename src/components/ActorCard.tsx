@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Text, Image } from "@chakra-ui/react";
 import config from "../utils/config.json";
 
