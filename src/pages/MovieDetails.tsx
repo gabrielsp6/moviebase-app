@@ -100,7 +100,7 @@ function MovieDetails() {
           </Box>
 
           <FavouriteToggleButton movieId = {id}/>
-          <WatchListToggleButton />
+          <WatchListToggleButton  movieId = {id}/>
 
           <Box>{data.overview}</Box>
           <Box>
