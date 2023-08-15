@@ -1,7 +1,7 @@
 import MovieCard from "../components/MovieCard";
 import { Container, Stack} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-
+import GenrePercentages from "../components/GenrePercentages";
 type MovieType = {
   id: string | number;
   title?: string;
@@ -11,7 +11,7 @@ type MovieType = {
 const WatchList = () => {
   const [watchlist, setWatchlist] = useState<MovieType[]>();
 
-  const getFavoritesFromLocalStorage = () => {
+  const getWatchListFromLocalStorage = () => {
     const watchlist = localStorage.getItem("watchlist");
     if (watchlist) {
       setWatchlist(JSON.parse(watchlist));
@@ -19,7 +19,7 @@ const WatchList = () => {
   };
 
   useEffect(() => {
-    getFavoritesFromLocalStorage();
+    getWatchListFromLocalStorage();
   }, []);
 
   const onDelete = (movieId: string | number) => {
@@ -37,12 +37,15 @@ const WatchList = () => {
 
   return (
     <Container>
+      <GenrePercentages />
       <Stack
         margin="30px"
         flexWrap="wrap"
         marginBottom="100px"
         direction={"row"}
       >
+    
+
         {watchlist
           ? watchlist?.map((movie: MovieType, index: string | number) => (
               <MovieCard
