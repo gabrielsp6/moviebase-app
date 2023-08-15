@@ -26,7 +26,7 @@ const FavouritesList = () => {
     const updatedFavorites = favourites?.filter(
       (id: string | number) => id !== movieId
     );
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    localStorage.setItem("favourites", JSON.stringify(updatedFavorites));
     setFavourites((prevData: any) => ({
       ...prevData,
       favourites: prevData.favourites.filter(
