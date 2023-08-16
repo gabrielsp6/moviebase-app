@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import {
-    Center,
     Container,
-    Stack,
-    WrapItem,
-    Progress,
     Heading,
     List,
     ListItem,
-    Text,
     Flex
   } from '@chakra-ui/react';
 
@@ -25,15 +20,28 @@ type MovieType = {
   poster_path?: string;
 };
 
+type Genre = {
+  id: number;
+  name: string;
+};
+
+type GenresArray = Genre[][] | undefined;
+
+
+type OccurencesWithPercentages = Record<string, string> | null;
+
+
 const GenrePercentages = () => {
   const [watchlist, setWatchlist] = useState<MovieType[]>();
-  const [genresArray, setGenresArray] = useState<any>(); 
-  const [occurencesWithPercentages, setOccurencesWithPercentages] = useState<any>()
+  const [genresArray, setGenresArray] = useState<GenresArray>(); 
+  const [occurencesWithPercentages, setOccurencesWithPercentages] = useState<OccurencesWithPercentages | null>(null)
 
   const getWatchListFromLocalStorage = async () => {
     const watchlist = localStorage.getItem("watchlist");
     if (watchlist) {
       setWatchlist(JSON.parse(watchlist));
+      console.log(genresArray)
+      console.log(occurencesWithPercentages)
     }
   };
 
@@ -118,12 +126,12 @@ const GenrePercentages = () => {
     function percentage(partialValue: number, totalValue: number): number {
       return (100 * partialValue) / totalValue;
     }
-    const occurencePercentages: any = {
-        [maxOccurenceKey]: String(Math.round(percentage(maxOccurenceValue, totalGenres))),
-        [secondMaxOccurenceKey]: String(Math.round(percentage(secondMaxOccurenceValue, totalGenres))),
-        [thirdMaxOccurenceKey]: String(Math.round(percentage(thirdMaxOccurenceValue, totalGenres))),
-        [fourthMaxOccurenceKey]: String(Math.round(percentage(fourthMaxOccurenceValue, totalGenres))),
-      };
+    const occurencePercentages: OccurencesWithPercentages = {
+      [maxOccurenceKey]: String(Math.round(percentage(maxOccurenceValue, totalGenres))),
+      [secondMaxOccurenceKey]: String(Math.round(percentage(secondMaxOccurenceValue, totalGenres))),
+      [thirdMaxOccurenceKey]: String(Math.round(percentage(thirdMaxOccurenceValue, totalGenres))),
+      [fourthMaxOccurenceKey]: String(Math.round(percentage(fourthMaxOccurenceValue, totalGenres))),
+    };
 
     setOccurencesWithPercentages(occurencePercentages)
   };
@@ -135,6 +143,9 @@ const GenrePercentages = () => {
   useEffect(() => {
     if (watchlist) {
       getArrayOfGenres(watchlist);
+
+
+
     }
   }, [watchlist]);
 
@@ -152,12 +163,12 @@ const GenrePercentages = () => {
 
 <Container width={200}>
     <PieChart radius={50}
-  data={[
-    { title: 'One', value: parseInt((occurencesWithPercentages[Object.keys(occurencesWithPercentages)[0]])), color: '#9E86D5' },
-    { title: 'Two', value: parseInt((occurencesWithPercentages[Object.keys(occurencesWithPercentages)[1]])), color:"#805AD5"},
-    { title: 'Three', value: parseInt((occurencesWithPercentages[Object.keys(occurencesWithPercentages)[2]])), color: 'white' },
-    { title: 'Three', value: parseInt((occurencesWithPercentages[Object.keys(occurencesWithPercentages)[3]])), color: '#B171C3' }
-  ]}
+          data={[
+            { title: 'One', value: parseInt(occurencesWithPercentages?.[Object.keys(occurencesWithPercentages)[0]] || "0"), color: '#9E86D5' },
+            { title: 'Two', value: parseInt(occurencesWithPercentages?.[Object.keys(occurencesWithPercentages)[1]] || "0"), color: "#805AD5" },
+            { title: 'Three', value: parseInt(occurencesWithPercentages?.[Object.keys(occurencesWithPercentages)[2]] || "0"), color: 'white' },
+            { title: 'Three', value: parseInt(occurencesWithPercentages?.[Object.keys(occurencesWithPercentages)[3]] || "0"), color: '#B171C3' }
+          ]}
 />
 </Container>
 <Container>
