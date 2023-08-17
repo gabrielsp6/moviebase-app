@@ -8,12 +8,8 @@ import {
   } from '@chakra-ui/react';
 
 import config from "../utils/config.json";
-
 import { BsFillSquareFill } from 'react-icons/bs';
-
 import { PieChart } from 'react-minimal-pie-chart';
-
-
 type MovieType = {
   id: string | number;
   title?: string;
@@ -26,22 +22,16 @@ type Genre = {
 };
 
 type GenresArray = Genre[][] | undefined;
-
-
 type OccurencesWithPercentages = Record<string, string> | null;
 
-
 const GenrePercentages = () => {
-  const [watchlist, setWatchlist] = useState<MovieType[]>();
-  const [genresArray, setGenresArray] = useState<GenresArray>(); 
+  const [watchlist, setWatchlist] = useState<MovieType[] | undefined>(undefined);
+  const [genresArray, setGenresArray] = useState<GenresArray | undefined>(undefined); 
   const [occurencesWithPercentages, setOccurencesWithPercentages] = useState<OccurencesWithPercentages | null>(null)
-
   const getWatchListFromLocalStorage = async () => {
     const watchlist = localStorage.getItem("watchlist");
     if (watchlist) {
       setWatchlist(JSON.parse(watchlist));
-      console.log(genresArray)
-      console.log(occurencesWithPercentages)
     }
   };
 
@@ -53,101 +43,99 @@ const GenrePercentages = () => {
     return movieData.genres;
   };
 
-  const getArrayOfGenres = async (idList: MovieType[]) => {
-    const promises = idList.map((movie) => getMovieGenres(movie.id));
-    const fetchedGenresArray = await Promise.all(promises);
-    setGenresArray(fetchedGenresArray);
-    const arrayOfGenresNoId = fetchedGenresArray.map((genres) =>
-      genres.map((genre: any) => genre.name)
-    );
-    const flattenedGenres = arrayOfGenresNoId.flat();
-
-    const occurrences: Record<string, number> = {};
-
-    flattenedGenres.forEach((genre) => {
-      if (occurrences[genre]) {
-        occurrences[genre]++;
-      } else {
-        occurrences[genre] = 1;
-      }
-    });
-    let maxOccurenceValue = 0;
-    let maxOccurenceKey = "";
-
-    let secondMaxOccurenceValue = 0;
-    let secondMaxOccurenceKey = "";
-
-    let thirdMaxOccurenceValue = 0;
-    let thirdMaxOccurenceKey = "";
-
-    let fourthMaxOccurenceValue = 0;
-    let fourthMaxOccurenceKey = "";
-
-    let totalGenres = 0;
-
-    for (const [key, value] of Object.entries(occurrences)) {
-      if (value > maxOccurenceValue) {
-        maxOccurenceValue = value;
-        maxOccurenceKey = key.toString();
-      }
-      totalGenres = totalGenres + value;
-    }
-
-    for (const [key, value] of Object.entries(occurrences)) {
-      if (value > secondMaxOccurenceValue && maxOccurenceKey !== key) {
-        secondMaxOccurenceValue = value;
-        secondMaxOccurenceKey = key.toString();
-      }
-    }
-
-    for (const [key, value] of Object.entries(occurrences)) {
-      if (
-        value > thirdMaxOccurenceValue &&
-        maxOccurenceKey !== key &&
-        secondMaxOccurenceKey !== key
-      ) {
-        thirdMaxOccurenceValue = value;
-        thirdMaxOccurenceKey = key.toString();
-      }
-    }
-
-    for (const [key, value] of Object.entries(occurrences)) {
-      if (
-        value > fourthMaxOccurenceValue &&
-        maxOccurenceKey !== key &&
-        secondMaxOccurenceKey !== key &&
-        thirdMaxOccurenceKey !== key
-      ) {
-        fourthMaxOccurenceValue = value;
-        fourthMaxOccurenceKey = key.toString();
-      }
-    }
-
-    function percentage(partialValue: number, totalValue: number): number {
-      return (100 * partialValue) / totalValue;
-    }
-    const occurencePercentages: OccurencesWithPercentages = {
-      [maxOccurenceKey]: String(Math.round(percentage(maxOccurenceValue, totalGenres))),
-      [secondMaxOccurenceKey]: String(Math.round(percentage(secondMaxOccurenceValue, totalGenres))),
-      [thirdMaxOccurenceKey]: String(Math.round(percentage(thirdMaxOccurenceValue, totalGenres))),
-      [fourthMaxOccurenceKey]: String(Math.round(percentage(fourthMaxOccurenceValue, totalGenres))),
-    };
-
-    setOccurencesWithPercentages(occurencePercentages)
-  };
-
   useEffect(() => {
     getWatchListFromLocalStorage();
   }, []);
 
   useEffect(() => {
+
+    const getArrayOfGenres = async (idList: MovieType[] ) => {
+      const promises = idList.map((movie) => getMovieGenres(movie.id));
+      const fetchedGenresArray = await Promise.all(promises);
+      setGenresArray(fetchedGenresArray);
+      const arrayOfGenresNoId = fetchedGenresArray.map((genres) =>
+        genres.map((genre: any) => genre.name)
+      );
+      const flattenedGenres = arrayOfGenresNoId.flat();
+  
+      const occurrences: Record<string, number> = {};
+  
+      flattenedGenres.forEach((genre) => {
+        if (occurrences[genre]) {
+          occurrences[genre]++;
+        } else {
+          occurrences[genre] = 1;
+        }
+      });
+      let maxOccurenceValue = 0;
+      let maxOccurenceKey = "";
+  
+      let secondMaxOccurenceValue = 0;
+      let secondMaxOccurenceKey = "";
+  
+      let thirdMaxOccurenceValue = 0;
+      let thirdMaxOccurenceKey = "";
+  
+      let fourthMaxOccurenceValue = 0;
+      let fourthMaxOccurenceKey = "";
+  
+      let totalGenres = 0;
+  
+      for (const [key, value] of Object.entries(occurrences)) {
+        if (value > maxOccurenceValue) {
+          maxOccurenceValue = value;
+          maxOccurenceKey = key.toString();
+        }
+        totalGenres = totalGenres + value;
+      }
+  
+      for (const [key, value] of Object.entries(occurrences)) {
+        if (value > secondMaxOccurenceValue && maxOccurenceKey !== key) {
+          secondMaxOccurenceValue = value;
+          secondMaxOccurenceKey = key.toString();
+        }
+      }
+  
+      for (const [key, value] of Object.entries(occurrences)) {
+        if (
+          value > thirdMaxOccurenceValue &&
+          maxOccurenceKey !== key &&
+          secondMaxOccurenceKey !== key
+        ) {
+          thirdMaxOccurenceValue = value;
+          thirdMaxOccurenceKey = key.toString();
+        }
+      }
+  
+      for (const [key, value] of Object.entries(occurrences)) {
+        if (
+          value > fourthMaxOccurenceValue &&
+          maxOccurenceKey !== key &&
+          secondMaxOccurenceKey !== key &&
+          thirdMaxOccurenceKey !== key
+        ) {
+          fourthMaxOccurenceValue = value;
+          fourthMaxOccurenceKey = key.toString();
+        }
+      }
+  
+      function percentage(partialValue: number, totalValue: number): number {
+        return (100 * partialValue) / totalValue;
+      }
+      const occurencePercentages: OccurencesWithPercentages = {
+        [maxOccurenceKey]: String(Math.round(percentage(maxOccurenceValue, totalGenres))),
+        [secondMaxOccurenceKey]: String(Math.round(percentage(secondMaxOccurenceValue, totalGenres))),
+        [thirdMaxOccurenceKey]: String(Math.round(percentage(thirdMaxOccurenceValue, totalGenres))),
+        [fourthMaxOccurenceKey]: String(Math.round(percentage(fourthMaxOccurenceValue, totalGenres))),
+      };
+  
+      setOccurencesWithPercentages(occurencePercentages)
+    };
     if (watchlist) {
       getArrayOfGenres(watchlist);
-
-
-
     }
   }, [watchlist]);
+  
 
   if (!genresArray || genresArray.length < 3) {
     return (
