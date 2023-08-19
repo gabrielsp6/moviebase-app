@@ -1,20 +1,21 @@
 import MovieCard from "../components/MovieCard";
-import { Container, Stack} from "@chakra-ui/react";
+import { Container, Stack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import Runtimes from "./Runtimes";
 
-interface IMovieData {
-  id: number | string;
+type MovieType = {
+  id: string | number;
   title?: string;
   poster_path?: string;
-}
+};
+
 const FavouritesList = () => {
-  const [favourites, setFavourites] = useState<any>();
+  const [favourites, setFavourites] = useState<MovieType[]>();
 
   const getFavoritesFromLocalStorage = () => {
     const favourites = localStorage.getItem("favourites");
     if (favourites) {
       setFavourites(JSON.parse(favourites));
-      console.log(favourites);
     }
   };
 
@@ -24,13 +25,13 @@ const FavouritesList = () => {
 
   const onDelete = (movieId: string | number) => {
     const updatedFavorites = favourites?.filter(
-      (id: string | number) => id !== movieId
+      (movie) => movie.id !== movieId
     );
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    localStorage.setItem("favourites", JSON.stringify(updatedFavorites));
     setFavourites((prevData: any) => ({
       ...prevData,
       favourites: prevData.favourites.filter(
-        (movie: IMovieData) => movie.id !== movieId
+        (movie: MovieType) => movie.id !== movieId
       ),
     }));
   };
@@ -43,8 +44,16 @@ const FavouritesList = () => {
         marginBottom="100px"
         direction={"row"}
       >
+        <Runtimes />
+      </Stack>
+      <Stack
+        margin="30px"
+        flexWrap="wrap"
+        marginBottom="100px"
+        direction={"row"}
+      >
         {favourites
-          ? favourites?.map((movie: IMovieData, index: string | number) => (
+          ? favourites?.map((movie: MovieType, index: string | number) => (
               <MovieCard
                 key={index}
                 onDelete={() => onDelete(movie.id)}
