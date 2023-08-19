@@ -1,6 +1,7 @@
 import MovieCard from "../components/MovieCard";
-import { Container, Stack} from "@chakra-ui/react";
+import { Container, Stack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+import Runtimes from "./Runtimes";
 
 type MovieType = {
   id: string | number;
@@ -37,6 +38,14 @@ const FavouritesList = () => {
 
   return (
     <Container>
+      <Stack
+        margin="30px"
+        flexWrap="wrap"
+        marginBottom="100px"
+        direction={"row"}
+      >
+        <Runtimes />
+      </Stack>
       <Stack
         margin="30px"
         flexWrap="wrap"
