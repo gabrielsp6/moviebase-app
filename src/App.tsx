@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate  } from "react-router-dom";
 import Home from "./pages/Home";
 import Collections from "./pages/Collections";
 import Search from "./pages/Search";
@@ -12,6 +12,8 @@ import MovieDetails from "./pages/MovieDetails";
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="/collections" />}  />
+
       <Route path="/home" element={<Home />} />
       <Route path="/search" element={<Search />} />
       <Route path="/watchlist" element={<WatchListPage />} />
