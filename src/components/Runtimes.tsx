@@ -37,7 +37,6 @@ const Runtimes = () => {
     const favourites = localStorage.getItem("favourites");
     if (favourites) {
       setFavourites(JSON.parse(favourites));
-      console.log(favourites)
     }
   };
 
