@@ -75,13 +75,13 @@ const GenrePercentages = () => {
       function percentage(partialValue: number, totalValue: number): number {
         return (100 * partialValue) / totalValue;
       }
+const occurencePercentages: OccurencesWithPercentages = {
+  [maxOccurences[0]?.[0] ?? " "]: String(Math.round(percentage(maxOccurences[0]?.[1] || 0, totalGenres))),
+  [maxOccurences[1]?.[0] ?? " not enough movies added for data"]: String(Math.round(percentage(maxOccurences[1]?.[1] || 0, totalGenres))),
+  [maxOccurences[2]?.[0] ?? " not enough movies added for data"]: String(Math.round(percentage(maxOccurences[2]?.[1] || 0, totalGenres))),
+  [maxOccurences[3]?.[0] ?? " not enough movies added for data"]: String(Math.round(percentage(maxOccurences[3]?.[1] || 0, totalGenres))),
+};
 
-      const occurencePercentages: OccurencesWithPercentages = {
-        [maxOccurences[0][0]]: String(Math.round(percentage(maxOccurences[0][1], totalGenres))),
-        [maxOccurences[1][0]]: String(Math.round(percentage(maxOccurences[1][1], totalGenres))),
-        [maxOccurences[2][0]]: String(Math.round(percentage(maxOccurences[2][1], totalGenres))),
-        [maxOccurences[3][0]]: String(Math.round(percentage(maxOccurences[3][1], totalGenres))),
-      };
         setOccurencesWithPercentages(occurencePercentages)
     };
     if (watchlist) {
