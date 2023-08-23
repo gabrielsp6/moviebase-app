@@ -19,6 +19,7 @@ interface ISearchResultsItem {
   id: number;
   title: string;
   release_date: string;
+  index: number
 }
 
 interface ISearchResultsProps {
@@ -35,6 +36,7 @@ function SearchBar({ onSubmit }: { onSubmit: (terms: string) => void }) {
   return (
     <InputGroup as="form" onSubmit={handleSearch}>
       <Input
+      data-testid="search-input"
         placeholder="Search for a movie..."
         value={text}
         onChange={(event) => setText(event.target.value)}
@@ -98,10 +100,11 @@ function SearchResults({ terms } : ISearchResultsProps) {
 
   return (
     <UnorderedList stylePosition="inside">
-      {data.results.map(({ id, title, release_date } : ISearchResultsItem) => (
-        <ListItem key={id}>
+      {data.results.map(({ id, title, release_date } : ISearchResultsItem, index: number) => (
+        <ListItem key={id} >
           <Link to={`/movie/${id}`}>
             <Button
+            data-testid={`search-result-${index}`}
               as="a"
               variant="link"
               rightIcon={<Badge>{release_date}</Badge>}

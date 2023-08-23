@@ -19,14 +19,15 @@ interface IMovieCardProps {
   id?: number | string,
   onDelete?: (movieId : string) => void,
   isHistory?: boolean,
-  date?: Date
+  date?: Date,
+  index?: number | string
   
 }
 
 const buildImageUrl = (path: string, size = "original") =>
   `${config.THE_MOVIE_DB_IMAGE_URL}/${size}${path}`;
 
-const Movie = ({ id, onDelete, isHistory, date }: IMovieCardProps) => {
+const Movie = ({ id, onDelete, isHistory, date, index }: IMovieCardProps) => {
   const [data, setData] = useState<IMovieData>();
 
   useEffect(() => {
@@ -64,9 +65,9 @@ const Movie = ({ id, onDelete, isHistory, date }: IMovieCardProps) => {
           transition: "0.5s ease",
         }}
       >
-        <Link href={`/movie/${id}`}>
+        <Link href={`/movie/${id}`} >
           <Container>
-            <Image src={imageUrl} alt="Movie poster" width="200" height="200" />
+            <Image src={imageUrl} alt="Movie poster" width="200" height="200" data-testid={`watchlist-card-${index}`} />
           </Container>
         </Link>
       </Box>

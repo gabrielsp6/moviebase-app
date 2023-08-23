@@ -49,6 +49,7 @@ const WatchList = () => {
         {watchlist
           ? watchlist?.map((movie: MovieType, index: string | number) => (
               <MovieCard
+                index = { index }
                 key={index}
                 onDelete={() => onDelete(movie.id)}
                 id={movie.id}
