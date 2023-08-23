@@ -8,7 +8,7 @@ describe("Search Page", () => {
     cy.get('[data-testid="search-input"]').type("{enter}");
 
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
       // Click on the i-th search result
       cy.get(`[data-testid="search-result-${i}"]`).first().click();
 
@@ -26,7 +26,7 @@ describe("Search Page", () => {
     cy.visit("http://localhost:3000/watchlist");
     cy.wait(2000)
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 7; i++) {
       cy.get(`[data-testid^="watchlist-card-${i}"]`).should("exist");
     }
     
