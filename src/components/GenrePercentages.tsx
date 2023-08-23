@@ -2,13 +2,10 @@ import  { useState, useEffect } from "react";
 import {
     Container,
     Heading,
-    List,
-    ListItem,
     Flex
   } from '@chakra-ui/react';
 
 import config from "../utils/config.json";
-import { BsFillSquareFill } from 'react-icons/bs';
 import { PieChart } from 'react-minimal-pie-chart';
 import WatchListLegend from "./WatchListLegend";
 type MovieType = {
