@@ -6,88 +6,28 @@ type WatchListLegendProps = {
   occurencesWithPercentages: OccurencesWithPercentages;
 };
 
-const WatchListLegend = ({
-  occurencesWithPercentages,
-}: WatchListLegendProps) => {
+const legendColors = ["#9E86D5", "#805AD5", "white", "#B171C3"];
+
+const WatchListLegend = ({ occurencesWithPercentages }: WatchListLegendProps) => {
+
   return (
     <List spacing={0} fontSize="lg" color="teal.500">
-      <ListItem
-        color="#9E86D5"
-        fontWeight={"700"}
-        margin="0"
-        display={"flex"}
-        alignItems="center"
-      >
-        <BsFillSquareFill style={{ marginRight: "10px" }} />
-        {occurencesWithPercentages &&
-          JSON.stringify(
-            occurencesWithPercentages[Object.keys(occurencesWithPercentages)[0]]
-          ).slice(1, 3)}
-        {" % "}
-        {occurencesWithPercentages &&
-          JSON.stringify(Object.keys(occurencesWithPercentages)[0]).replace(
-            /['"]+/g,
-            ""
-          )}{" "}
-      </ListItem>
-
-      <ListItem
-        color="#805AD5"
-        fontWeight={"700"}
-        display={"flex"}
-        alignItems="center"
-      >
-        <BsFillSquareFill style={{ marginRight: "10px" }} />
-        {occurencesWithPercentages &&
-          JSON.stringify(
-            occurencesWithPercentages[Object.keys(occurencesWithPercentages)[1]]
-          ).slice(1, 3)}
-        {" % "}
-        {occurencesWithPercentages &&
-          JSON.stringify(Object.keys(occurencesWithPercentages)[1]).replace(
-            /['"]+/g,
-            ""
-          )}{" "}
-      </ListItem>
-
-      <ListItem
-        color="white"
-        fontWeight={"700"}
-        display={"flex"}
-        alignItems="center"
-      >
-        <BsFillSquareFill style={{ marginRight: "10px" }} />
-        {occurencesWithPercentages &&
-          JSON.stringify(
-            occurencesWithPercentages[Object.keys(occurencesWithPercentages)[2]]
-          ).slice(1, 3)}
-        {" % "}
-        {occurencesWithPercentages &&
-          JSON.stringify(Object.keys(occurencesWithPercentages)[2]).replace(
-            /['"]+/g,
-            ""
-          )}{" "}
-      </ListItem>
-      <ListItem
-        color="#B171C3"
-        fontWeight={"700"}
-        display={"flex"}
-        alignItems="center"
-      >
-        <BsFillSquareFill style={{ marginRight: "10px" }} />
-        {occurencesWithPercentages &&
-          JSON.stringify(
-            occurencesWithPercentages[Object.keys(occurencesWithPercentages)[3]]
-          ).slice(1, 3)}
-        {" % "}
-        {occurencesWithPercentages &&
-          JSON.stringify(Object.keys(occurencesWithPercentages)[3]).replace(
-            /['"]+/g,
-            ""
-          )}{" "}
-      </ListItem>
+      {occurencesWithPercentages &&
+        Object.entries(occurencesWithPercentages).map(([key, value], index) => (
+          <ListItem
+            key={index}
+            color={legendColors[index]}
+            fontWeight="700"
+            display="flex"
+            alignItems="center"
+          >
+            <BsFillSquareFill style={{ marginRight: "10px" }} />
+            {`${value} % ${key}`} 
+          </ListItem>
+        ))}
     </List>
   );
 };
+
 
 export default WatchListLegend;
