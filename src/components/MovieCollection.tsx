@@ -68,37 +68,6 @@ const MovieCollection = ({
     fetchMoviesData();
   }, [list]);
 
-  async function addCollection() {
-    const response = await fetch(
-      "http://localhost:3000/api/favourites/addcollection",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          list: list,
-        }),
-      }
-    );
-    const data = await response.json();
-  }
-
-  async function deleteCollection() {
-    const response = await fetch(
-      "http://localhost:3000/api/favourites/addcollection",
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          list: list,
-        }),
-      }
-    );
-    const data = await response.json();
-  }
 
   return (
     <Container width={300}>
@@ -159,10 +128,10 @@ const MovieCollection = ({
             </Button>
           </Container>
           <ModalFooter>
-            <Button onClick={addCollection} marginLeft="10px">
+            <Button marginLeft="10px">
               Add to Favourites
             </Button>
-            <Button onClick={deleteCollection} marginLeft="10px">
+            <Button marginLeft="10px">
               Delete from Favourites
             </Button>
             <Button onClick={() => setIsOpen(false)} marginLeft="10px">
