@@ -75,13 +75,13 @@ const GenrePercentages = () => {
       function percentage(partialValue: number, totalValue: number): number {
         return (100 * partialValue) / totalValue;
       }
-const occurencePercentages: OccurencesWithPercentages = {
-  [maxOccurences[0]?.[0] ?? " "]: String(Math.round(percentage(maxOccurences[0]?.[1] || 0, totalGenres))),
-  [maxOccurences[1]?.[0] ?? " not enough movies added for data"]: String(Math.round(percentage(maxOccurences[1]?.[1] || 0, totalGenres))),
-  [maxOccurences[2]?.[0] ?? " not enough movies added for data"]: String(Math.round(percentage(maxOccurences[2]?.[1] || 0, totalGenres))),
-  [maxOccurences[3]?.[0] ?? " not enough movies added for data"]: String(Math.round(percentage(maxOccurences[3]?.[1] || 0, totalGenres))),
-};
+const occurencePercentages: OccurencesWithPercentages = {};
 
+for (let i = 0; i < 4; i++) {
+  const genreName = maxOccurences[i]?.[0] ?? "not enough movies added for data";
+  const genreCount = maxOccurences[i]?.[1] || 0;
+  occurencePercentages[genreName] = String(Math.round(percentage(genreCount, totalGenres)));
+}
         setOccurencesWithPercentages(occurencePercentages)
     };
     if (watchlist) {
@@ -100,7 +100,6 @@ const occurencePercentages: OccurencesWithPercentages = {
 
   return <Container>
 <Flex alignItems={"center"}>
-
 
 <Container width={200}  data-testid={'pie-chart'}>
     <PieChart radius={50}
